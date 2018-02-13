@@ -4,27 +4,50 @@
 <title>WebSocket</title>
 <script type="text/javascript" language="Javascript">
 function onLoad() {
- console.log('inside function');
+	
+	console.log('inside function');
+	
 	var socket = new WebSocket('ws://'+ window.location.host + '/my-websocket-endpoint');
-	 console.log('---2-1----');
+	
+	console.log('---2-1----');
+	 
 	// Add an event listener for when a connection is open
 	socket.onopen = function() {
-	  console.log('WebSocket connection opened. Ready to send messages.');
-	 
-	  // Send a message to the server
-	  socket.send('Hello, from WebSocket client!');
+		
+	 console.log('WebSocket connection opened. Ready to send messages.');
+	 // Send a message to the server
+	socket.send('Hello, from WebSocket client!');
 	};
 	 
 	// Add an event listener for when a message is received from the server
 	socket.onmessage = function(message) {
+		
+		var value = message.data;
+		
+		console.log('value: ' + value);
+
+		$('#status_progress').attr('aria-valuenow', value).css('width',value);
+		$('#status_progress').text(value+"%");
+
+		
 	  console.log('Message received from server: ' + message.data);
 	};
 }
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+<br>
+<div class="progress" style="margin-left:25px;width:40%">
+  <div id="status_progress" class="progress-bar" role="progressbar" style="width:0%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">0%</div>
+</div>
 
 <a href="#" onClick="onLoad()"/> click</a>
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>
 
