@@ -24,7 +24,6 @@ function onLoad() {
 <body>
 
 <a href="#" onClick="onLoad()"/> click</a>
-
 </body>
 </html>
 
